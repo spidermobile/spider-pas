@@ -1,25 +1,40 @@
-angular.module('appRoutes', []).config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+(function() {
+    'use strict';
 
-	$stateProvider
-		.state('home', {
-			url: '/',
-			templateUrl: 'views/home.html'
-		})
-		.state('nerds', {
-			url: '/nerds',
-			templateUrl: 'views/nerd.html',
-			controller: 'NerdController'
-		})
-		.state('geeks', {
-			url: '/geeks',
-			templateUrl: 'views/geek.html',
-			controller: 'GeekController'
-		})
-		.state('login', {
-			url: '/login',
-			templateUrl: 'views/login.html',
-			controller: 'LoginController'
-		})
+    angular.module('spiderPortal')
+        .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', appRoutes]);
 
-	$urlRouterProvider.otherwise('/');
-}]);
+    function appRoutes($stateProvider, $urlRouterProvider, $locationProvider) {
+			$stateProvider
+				.state('home', {
+					url: '/',
+					templateUrl: 'auth/login.html'
+				})
+				.state('login', {
+					url: '/login',
+					templateUrl: 'auth/login.html',
+					controller: 'loginController'
+				})
+        .state('logout', {
+					url: '/logout',
+					templateUrl: 'auth/login.html',
+					controller: 'logoutController'
+				})
+				.state('myfeedback', {
+					url: '/myfeedback',
+					templateUrl: 'myFeedback/myFeedback.html'
+				})
+        .state('peerfeedback', {
+					url: '/peerfeedback',
+					templateUrl: 'peerFeedback/peerFeedback.html'
+				})
+        .state('associates', {
+					url: '/associates',
+					templateUrl: 'associates/associates.html'
+				})
+
+			$urlRouterProvider.otherwise('/');
+
+			$locationProvider.html5Mode(true);
+		};
+})();

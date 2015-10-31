@@ -1,0 +1,26 @@
+<section data-ng-controller="loginController as vm">
+	<div class="jumbotron text-center">
+		    <div class="container signin-container">
+		        <div class="row">
+		            <div class="col-lg-7 col-md-7">
+		                <form name="loginForm" class="form-horizontal signin-form">
+		                    <h2 class="signin-heading">Sign In </h2>
+		                    <input type="email" ng-model="username" name="username" class="form-control col-sm-12" placeholder="Email address" required autofocus>
+		                    <div class="col-sm-12">
+		                        <span class="haserrorfieldlevel" ng-show="loginForm.username.$error.required && !loginForm.username.$pristine">This is required.</span>
+		                        <span class="haserrorfieldlevel" ng-show="loginForm.username.$error.email && !loginForm.username.$pristine">This needs to be an email address.</span>
+		                        <span class="haserrorfieldlevel" ng-show="loginError!=null">{{loginError}}</span>
+		                    </div>
+		                    <br /><br />
+		                    <input type="password" ng-model="password" name="password" class="form-control col-sm-12" placeholder="Password" required>
+		                    <div class="col-sm-12">
+		                        <span class="haserrorfieldlevel" ng-show="loginForm.password.$error.required  && !loginForm.password.$pristine">This is required.</span>
+		                    </div>
+		                    <br/><br/>
+		                    <button ng-disabled="loginForm.$invalid" class="btn btn-lg btn-primary btn-cust btn-block" ng-click="login()">Sign In</button>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+	</div>
+</section>
