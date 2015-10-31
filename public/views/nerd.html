@@ -2,4 +2,17 @@
 	<h1>Nerds and Proud</h1>
 
 	<p>{{ tagline }}</p>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div>
+				<co-lc-table id="my-feedback" ng-show="tableSharedData.showTable"
+							 tableoptions="tableOptions" datafunction="tableDatasource"
+							 shared-data="tableSharedData" show-loading="showLoading"
+							 hide-loading="hideLoading"></co-lc-table>
+				<div class="alert-message" ng-show="tableSharedData.showMessage">
+					{{tableEmptyMessage}}
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

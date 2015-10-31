@@ -1,0 +1,68 @@
+<div>
+    <!-- Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr class="headerRow">
+                <th data-ng-repeat="header in tableOptions.columnDefs" class="{{header.headerClass}}">
+                    <div ng-if="header.sort" class="sortable table-headers" ng-click="sort(header.field)">
+                        {{header.displayName}}
+                        <div ng-show="header.sort" class="sort-indicators">
+                            <span ng-attr-class="{{(tableOptions.sortExpression === header.field && tableOptions.sortOrder == 'asc') && 'table-col-sort glyphicon glyphicon-chevron-up small' || 'table-col-sort-disabled glyphicon glyphicon-chevron-up small'}}"></span>
+                            <span ng-attr-class="{{(tableOptions.sortExpression === header.field && tableOptions.sortOrder == 'desc') && 'table-col-sort glyphicon glyphicon-chevron-down small' || 'table-col-sort-disabled glyphicon glyphicon-chevron-down small'}}"></span>
+                        </div>
+                    </div>
+                    <div class="table-headers" ng-if="!header.sort">
+                        {{header.displayName}}
+                    </div>
+                </th>
+            </tr>
+            <tr class="searchRow" ng-show="tableOptions.searchRow">
+                <th data-ng-repeat="headerSearch in tableOptions.columnDefs" ng-switch
+                    on="headerSearch.searchOptions.searchType">
+                    <span ng-if="headerSearch.search" style="width:100%">
+                        <select class="form-control filter-comparator-select lc-table-filters"
+                                ng-if="headerSearch.searchOptions.comparators.data.length > 0"
+                                ng-model="sharedData.search[headerSearch.searchOptions.comparators.model]"
+                                ng-options="c for c in headerSearch.searchOptions.comparators.data"
+                                ng-change="filter($event)">
+                        </select>
+                        <input ng-switch-when="text" ng-blur="filter($event)" ng-keypress="filter($event)"
+                               placeholder="{{headerSearch.searchOptions.placeHolder}}"
+                               ng-attr-class="{{(headerSearch.searchOptions.comparators.data.length > 0) && 'form-control filter-comparator-input lc-table-filters' || 'form-control lc-table-filters'}}"
+                               ng-model="sharedData.search[headerSearch.field]">
+                        <!--<span ng-switch-when="datepicker" >-->
+                            <!--<input class="form-control" ng-change="validateDateForFilter(sharedData.search[headerSearch.field])" ng-blur="filter($event)" ng-keypress="filter($event)" datepicker-popup={{headerSearch.searchOptions.Options.dateFormat}}  is-open="opened" ng-required="true"-->
+                                   <!--ng-model="sharedData.search[headerSearch.field]" datepicker-options={{headerSearch.searchOptions.Options.dateOptions}} show-weeks="false"-->
+                                   <!--ng-attr-style="{{(headerSearch.searchOptions.comparators.data.length > 0) && 'width:75%' || ''}}" close-text="Close" />-->
+                        <!--</span>-->
+                    </span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="dataRow" ng-repeat="row in rows">
+                <td ng-repeat="column in tableOptions.columnDefs" class="{{column.dataClass}}"
+                    ng-attr-popover="{{column.toolTip && (column.formatter == null && $eval('row.'+column.field) || (column.formatter != null && column.formatter($eval('row.'+column.field),row,tableOptions.currentPage)) ) || ''}}"
+                    popover-placement="top" popover-trigger="mouseenter" popover-append-to-body="true">
+                    <span>
+                        <span ng-if="column.formatter == null">{{$eval('row.'+column.field)}}</span>
+                        <span ng-if="column.formatter != null"
+                              ng-bind-html="column.formatter($eval('row.'+column.field),row,tableOptions.currentPage)"></span>
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pagination -->
+    <div class="pagination-alignment" ng-show="tableOptions.showPagination">
+        <pagination max-size="tableOptions.maxPageControls" rotate="false" boundary-links="true" class="pagination-sm"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                    total-items="totalItemCount" ng-model="tableOptions.currentPage"
+                    items-per-page="tableOptions.pageSize"
+                    ng-click="pageChanged(tableOptions.currentPage)" num-pages="totalPages">
+        </pagination>
+    </div>
+
+</div>
