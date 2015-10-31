@@ -2,22 +2,23 @@
     'use strict';
 
     angular.module('spiderPortal')
-        .controller('loginController', ['loginService', loginController]);
+        .controller('loginController', ['loginService', '$state', loginController]);
 
-    function loginController(loginService) {
-			var vm = this;
+    function loginController(loginService, $state) {
+        var vm = this;
 
-			function init() {
-        vm.credentials = {};
-        vm.credentials.username = "yourname@spiderlogic.com";
-        vm.credentials.password = "what!";
-			};
+        function init() {
+            vm.credentials = {};
+            vm.credentials.username = "yourname@spiderlogic.com";
+            vm.credentials.password = "what!";
+        };
 
-      vm.login = function(){
-        alert("a");
-        loginService.login(vm.credentials.email, vm.credentials.password);
-      }
+        vm.login = function(){
+            alert("a");
+            loginService.login(vm.credentials.email, vm.credentials.password);
+            $state.go("home");
+        };
 
-			init();
+        init();
 	};
 })();
