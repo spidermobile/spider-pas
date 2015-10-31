@@ -6,18 +6,6 @@
 
     function appRoutes($stateProvider, $urlRouterProvider, $locationProvider) {
 		$stateProvider
-			.state('home', {
-				url: '/',
-				templateUrl: 'myFeedback/myFeedback.html',
-				onEnter: [
-					"$rootScope", '$state', function ($rootScope, $state) {
-						if (!$rootScope.isAuthenticated()) {
-							$state.go('login');
-							return;
-						}
-					}
-				]
-			})
 			.state('login', {
 				url: '/login',
 				templateUrl: 'auth/login.html',
@@ -28,21 +16,45 @@
 						templateUrl: 'auth/login.html',
 						controller: 'logoutController'
 					})
-					.state('myfeedback', {
-						url: '/myfeedback',
-						templateUrl: 'myFeedback/myFeedback.html'
-					})
+			.state('myfeedback', {
+				url: '/myfeedback',
+				templateUrl: 'myFeedback/myFeedback.html',
+				onEnter: [
+					"$rootScope", '$state', function ($rootScope, $state) {
+						if (!$rootScope.isAuthenticated()) {
+							$state.go('login');
+							return;
+						}
+					}
+				]
+			})
 			.state('peerfeedback', {
-						url: '/peerfeedback',
-						templateUrl: 'peerFeedback/peerFeedback.html'
-					})
+				url: '/peerfeedback',
+				templateUrl: 'peerFeedback/peerFeedback.html',
+				onEnter: [
+					"$rootScope", '$state', function ($rootScope, $state) {
+						if (!$rootScope.isAuthenticated()) {
+							$state.go('login');
+							return;
+						}
+					}
+				]
+			})
 			.state('associates', {
-						url: '/associates',
-						templateUrl: 'associates/associates.html'
-					})
+				url: '/associates',
+				templateUrl: 'associates/associates.html',
+				onEnter: [
+					"$rootScope", '$state', function ($rootScope, $state) {
+						if (!$rootScope.isAuthenticated()) {
+							$state.go('login');
+							return;
+						}
+					}
+				]
+			});
 
-				$urlRouterProvider.otherwise('/');
+		$urlRouterProvider.otherwise('/myfeedback');
 
-				$locationProvider.html5Mode(true);
-			};
+		$locationProvider.html5Mode(true);
+	};
 })();

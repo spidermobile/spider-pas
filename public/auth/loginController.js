@@ -14,9 +14,8 @@
         };
 
         vm.login = function(){
-            alert("a");
-            loginService.login(vm.credentials.email, vm.credentials.password);
-            $state.go("home");
+            loginService.login(vm.credentials.username, vm.credentials.password);
+            $state.go("myfeedback");
         };
 
         init();
