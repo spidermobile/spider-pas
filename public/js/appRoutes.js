@@ -1,4 +1,4 @@
-angular.module('appRoutes', []).config(['$stateProvider', '$urlRouteProvider', function($stateProvider, $urlRouteProvider) {
+angular.module('appRoutes', []).config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
 	$stateProvider
 
@@ -20,6 +20,6 @@ angular.module('appRoutes', []).config(['$stateProvider', '$urlRouteProvider', f
 			controller: 'GeekController'
 		})
 
-	$urlRouteProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/');
 
 }]);
