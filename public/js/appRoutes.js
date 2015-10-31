@@ -15,6 +15,11 @@ angular.module('appRoutes', []).config(['$stateProvider', '$urlRouterProvider', 
 			templateUrl: 'views/geek.html',
 			controller: 'GeekController'
 		})
+		.state('login', {
+			url: '/login',
+			templateUrl: 'views/login.html',
+			controller: 'LoginController'
+		})
 
 	$urlRouterProvider.otherwise('/');
 }]);
