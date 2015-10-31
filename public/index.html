@@ -18,16 +18,17 @@
 	<script src='libs/angular-bootstrap/ui-bootstrap-tpls.js'></script>
 
 	<!-- ANGULAR CUSTOM -->
-	<script src="js/common/coLcTable.js"></script>
-	<script src="js/services/myFeedbackService.js"></script>
+
 
 	<script src="js/app.js"></script>
 	<script src="js/appRoutes.js"></script>
+	<script src="js/common/coLcTable.js"></script>
 
 	<script src="auth/loginService.js"></script>
 	<script src="auth/loginController.js"></script>
 	<script src="auth/logoutController.js"></script>
 
+	<script src="myFeedback/myFeedbackService.js"></script>
 	<script src="myFeedback/myFeedbackController.js"></script>
 	<script src="peerFeedback/peerFeedbackController.js"></script>
 	<script src="associates/associatesController.js"></script>
@@ -51,7 +52,9 @@
 		</nav>
 
 	<!-- ANGULAR DYNAMIC CONTENT -->
-	<div ui-view></div>
+	<div class="container-fluid main">
+		<div ui-view></div>
+	</div>
 </div>
 </body>
 </html>

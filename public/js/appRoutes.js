@@ -8,7 +8,7 @@
 			$stateProvider
 				.state('home', {
 					url: '/',
-					templateUrl: 'auth/login.html'
+					templateUrl: 'myFeedback/myFeedback.html'
 				})
 				.state('login', {
 					url: '/login',

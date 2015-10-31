@@ -1,11 +1,15 @@
-/**
- * Created by asheesh on 31/10/2015.
- */
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('services', []).factory('myFeedbackService', ['$q', function ($q) {
-    return {
-        get: function (pageNo, pageSize, sortExpr, sortOrder, filters) {
+    angular.module('spiderPortal')
+        .factory('myFeedbackService', ['$q', myFeedbackService]);
+
+      function myFeedbackService($q) {
+          return {
+              get: get
+          };
+
+          function get(pageNo, pageSize, sortExpr, sortOrder, filters) {
             var deferred = $q.defer();
             var response = {
                 items: [
@@ -27,6 +31,6 @@ angular.module('services', []).factory('myFeedbackService', ['$q', function ($q)
             };
             deferred.resolve(response);
             return deferred.promise;
-        }
-    };
-}]);
+          };
+      };
+  })();
