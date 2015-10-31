@@ -29,16 +29,16 @@
 	<!-- HEADER -->
 	<nav class="navbar navbar-inverse">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/">Stencil: Node and Angular</a>
+			<a class="navbar-brand" ui-sref="home">Stencil: Node and Angular</a>
 		</div>
 		<ul class="nav navbar-nav">
-			<li><a href="/nerds">Nerds</a></li>
-			<li><a href="/geeks">Geeks</a></li>
+			<li><a ui-sref="nerds">Nerds</a></li>
+			<li><a ui-sref="geeks">Geeks</a></li>
 		</ul>
 	</nav>
 
 	<!-- ANGULAR DYNAMIC CONTENT -->
-	<div ng-view></div>
+	<div ng-view ui-view></div>
 
 </div>
 </body>
