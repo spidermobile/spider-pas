@@ -1,20 +1,15 @@
-# MEAN Stack Single Page Application Starter
+# Spiderlogic Peer Appraisal System
 
-This is a repo for a starter appliation for a Single Page MEAN Stack application. Just download and install and you have a good foundation for building application. 
+This is a repo for a peer application system to be used during Spiderlogic appraisals.
 
-## Installation
-1. Download the repository
-2. Install npm modules: `npm install`
-3. Install bower dependencies `bower install`
-4. Start up the server: `node server.js`
-5. View in browser at http://localhost:8080
+## Tech Stack
+1. NodeJS
+2. AngularJS
+3. ExpressJS
+4. MongoDB
 
-Use this starter kit to build any MEAN stack application you like.
-
-If you have any questions or requests, email us at [chris@scotch.io](mailto:chris@scotch.io) and we'll keep updating this to make it perfect.
-
-## Future Additions
-- CRUD examples
-- Development and Production Environments
-- Link examples
-- Single Page AngularJS Animations
+## Features
+1. User registration
+2. Request feedbacks
+3. Provide feedbacks
+4. View feedbacks
