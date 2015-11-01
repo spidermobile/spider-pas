@@ -40,6 +40,18 @@
 					}
 				]
 			})
+			.state('viewFeedback', {
+				url: '/viewFeedback',
+				templateUrl: 'viewFeedback/viewFeedback.html',
+				onEnter: [
+					"$rootScope", '$state', function ($rootScope, $state) {
+						if (!$rootScope.isAuthenticated()) {
+							$state.go('login');
+							return;
+						}
+					}
+				]
+			})
 			.state('associates', {
 				url: '/associates',
 				templateUrl: 'associates/associates.html',

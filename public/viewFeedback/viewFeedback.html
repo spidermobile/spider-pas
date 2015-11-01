@@ -1,0 +1,8 @@
+<section data-ng-controller="viewFeedbackController as vm">
+	<div class="jumbotron text-center">
+		<h1>Peer feedback</h1>
+		<p>{{ vm.tagline }}</p>
+
+		<html-editor container-id="vm.editorHandler.id" config="vm.editorHandler.config" html="vm.html"></html-editor>
+	</div>
+</section>

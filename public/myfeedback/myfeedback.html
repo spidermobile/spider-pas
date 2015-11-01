@@ -6,10 +6,10 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div>
-					<co-lc-table id="my-feedback" ng-show="vm.tableSharedData.showTable"
+					<pas-table id="my-feedback" ng-show="vm.tableSharedData.showTable"
 								 tableoptions="vm.tableOptions" datafunction="vm.tableDatasource"
 								 shared-data="vm.tableSharedData" show-loading="vm.showLoading"
-								 hide-loading="vm.hideLoading"></co-lc-table>
+								 hide-loading="vm.hideLoading"></pas-table>
 					<div class="alert-message" ng-show="vm.tableSharedData.showMessage">
 							{{vm.tableEmptyMessage}}
 					</div>

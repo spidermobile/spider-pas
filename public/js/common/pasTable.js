@@ -2,13 +2,13 @@
     'use strict';
 
     angular.module('spiderPortal')
-        .directive('coLcTable', [coLcTable]);
+        .directive('pasTable', [pasTable]);
 
-    function coLcTable() {
+    function pasTable() {
       return {
           restrict: 'E',
           replace: true,
-          templateUrl: 'js/common/coLcTable.html',
+          templateUrl: 'js/common/pasTable.html',
           scope: {
               tableOpt: "=tableoptions",
               dataFunction: "=datafunction",
