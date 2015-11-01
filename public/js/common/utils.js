@@ -11,6 +11,12 @@
                 $rootScope.isAuthenticated  = function (){
                     return associateService.getLoggedUser();
                 }
+
+                $rootScope.setTextAreaHeight = function (textarea) {
+                    $(textarea).css("height", (textarea.scrollHeight - 22) + "px");
+                    var currentHeight = textarea.scrollHeight - 2;
+                    $(textarea).css("height", currentHeight + "px");
+                };
             }
         }
     }

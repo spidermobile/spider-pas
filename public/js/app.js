@@ -1,6 +1,6 @@
 (function () {
     'use strict';
 
-    angular.module('spiderPortal', ['ui.router', 'ui.bootstrap']);
+    angular.module('spiderPortal', ['ngResource', 'ui.router', 'ui.bootstrap']);
 
   })();

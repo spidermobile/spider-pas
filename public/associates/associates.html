@@ -1,6 +1,60 @@
 <section data-ng-controller="associatesController as vm">
 	<div class="jumbotron text-center">
-		<h1>Associates</h1>
-		<p>{{ vm.tagline }}</p>
+		<div class="row">
+			<div class="col-sm-12 col-xs-12">
+				<table class="table">
+					<tbody>
+					<tr>
+						<th class="text-center">
+							<input type="checkbox" ng-model="vm.isAllUserChecked"
+								   ng-true-value="true" ng-false-value="false"
+								   ng-click="vm.checkAllUser()"/>
+						</th>
+						<th  class="text-center">Name</th>
+						<th  class="text-center">Email</th>
+					</tr>
+					<tr>
+						<th  class="text-center"></th>
+						<th  class="text-center">
+							<input class="form-control input-sm" ng-model="vm.searchUserCriteria.firstName">
+						</th>
+						<th  class="text-center">
+							<input class="form-control input-sm" ng-model="vm.searchUserCriteria.email">
+						</th>
+					</tr>
+					<tr ng-repeat="user in vm.users | filter :vm.searchUserCriteria">
+						<td><input
+								type="checkbox"
+								name="vm.selectedUsers[]"
+								value="{{user.id}}"
+								ng-checked="vm.selectedUsers.indexOf(user.id) > -1"
+								ng-click="vm.toggleSelection(user.id)">
+						</td>
+						<td><span ng-bind="user.firstName"></span></td>
+						<td><a ng-href="mailto:{{user.email}}?subject={{encodeURI(vm.invitationSubject)}}&body={{encodeURI(vm.invitationDescription)}}"  ng-bind="user.email"></a></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12  text-center tpad">
+				<label>Invitation Subject</label>
+				<input ng-model="vm.invitationSubject"
+					   ng-attr-class="{{vm.invitationSubjectError && 'form-control input-lg haserror' || 'form-control input-lg'}}" />
+				<span ng-show="vm.invitationSubjectError" class="errortext" ng-bind="vm.invitationSubjectError"></span>
+			</div>
+			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12  text-center tpad">
+				<label>Invitation Mail Body</label>
+		<textarea ng-model="vm.invitationDescription"
+				  ng-attr-class="{{vm.invitationDescriptionError && 'form-control input-lg  invitation-subject auto-expand haserror' || 'form-control invitation-subject auto-expand input-lg'}}" />
+				<span ng-show="vm.invitationDescriptionError" class="errortext" ng-bind="vm.invitationDescriptionError"></span>
+			</div>
+			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12  text-center tpad">
+				<button class="btn btn-lg btn-primary btn-primary-custm"
+						ng-click="vm.validateAndSendInvite()"
+						type="button" ng-disabled="vm.btnDisabled || (vm.selectedUsers.length<=0)">Send Invitation
+				</button>
+			</div>
+		</div>
 	</div>
+
 </section>
