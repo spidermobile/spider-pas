@@ -9,16 +9,16 @@
 
 		function init() {
 			vm.invitationSubject = "Sign Up for PAS";
-			vm.invitationDescription = "Dear  {username},\n\n" +
-			"Please click on the link below and enter the information that you " +
-			"will capture on the sheet during the Client Growth exercise. We will " +
-			"use this information to help you generate follow-up action plans post-summit.\n\n" +
-			"Link to access the application is:\n{appurl}\n\n" +
+			vm.invitationDescription = "Dear  {firstName},\n\n" +
+			"Please click on the link below and set password to login into PAS system \n " +
+
+			"Link to access the application is:\n{link}\n\n" +
+
 			"If you face any issues accessing or using the application, then please get in touch " +
-			"with Girish Ramachandra (gramachandra@spiderlogic.com), Arun Bharadwaj (abharadwaj@spiderlogic.com)" +
-			" or Gautam Kasturi (GKasturi@spiderlogic.com), in person or via email.\n\n" +
+			"with Himanshu Trivedi (htrivedi@spiderlogic.com) or Ameya Naik (anaik@spiderlogic.com)" +
+			" in person or via email.\n\n" +
 			"Thank You,\n" +
-			"Murali";
+			"PAS Admin";
 
 			vm.selectedUsers = [];
 		};
@@ -27,9 +27,13 @@
 			associateService.getUsers().then(
 					function(data){
 						vm.users = data;
+						angular.forEach(vm.users, function(user){
+							user.emailTried = false;
+							user.emailSent = false;
+						});
 					},
 					function(){
-						$location.path("/error/500").search({});
+						alert("error occured");
 						return;
 					}
 				);
@@ -63,24 +67,48 @@
 			},0);
 		};
 
+		//not working here . working in console window
+		var bindTemplate = function(template, context){
+			var string  = template.valueOf();
+			for(var prop in context){
+				var expression = "{" + prop + "}";
+				var rx = new RegExp(expression, 'gim');
+				var value = context[prop];
+				string.replace(rx, value);
+			}
+			return string;
+		};
+
 		vm.validateAndSendInvite = function(){
-			vm.showLoading();
 			vm.btnDisabled = true;
 			if(vm.validate()){
-				//salesLeadService.sendInvitation(vm.selectedUsers,vm.invitationSubject,vm.invitationDescription).then(
-				//	function(data){
-				//		vm.btnDisabled = false;
-				//		vm.hideLoading();
-				//		vm.showToastrSuccess("invitation sent");
-				//	},
-				//	function(){
-				//		vm.showToastrErrors("could not send invitation");
-				//		vm.btnDisabled = false;
-				//		vm.hideLoading();
-				//	}
-				//);
+				angular.forEach(vm.selectedUsers, function(userId , index){
+					var user = null;
+					angular.forEach(vm.users, function(userData){
+						if(userData.id == userId){
+							user = userData;
+							return;
+						}
+					});
+					if(user){
+						user.emailTried = true;
+						$.get("http://localhost:8080/send",
+							{to: user.email,subject: vm.invitationSubject,
+								text: bindTemplate(vm.invitationDescription,{firstName: user.firstName, link: "localhost:8080"})}
+							,function(data){
+								if(data=="sent")
+								{
+									user.emailSent = true;
+									console.log("Email sent");
+								}else{
+									user.emailSent = false;
+									vm.btnDisabled = false;
+								}
+							});
+					}
+
+				});
 			}else{
-				vm.hideLoading();
 				vm.btnDisabled = false;
 			}
 		};

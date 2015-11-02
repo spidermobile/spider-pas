@@ -3,6 +3,80 @@
 		<h1>Peer feedback</h1>
 		<p>{{ vm.tagline }}</p>
 
-		<html-editor container-id="vm.editorHandler.id" config="vm.editorHandler.config" html="vm.html"></html-editor>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Feedback Form
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-6">
+						<div>
+							<label>Provider</label>
+							<span ng-bind="vm.feedback.provider"></span>
+						</div>
+						<div>
+							<label>Requestor</label>
+							<span ng-bind="vm.feedback.requestor"></span>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div>
+							<label>Due Date</label>
+							<span ng-bind="vm.feedback.dueDate"></span>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="col-lg-5">
+						List the projects/activities in which you interacted with your peer.
+					</div>
+					<div class="col-lg-7">
+						<html-editor container-id="vm.projectListEditorHandler.id"
+									 config="vm.projectListEditorHandler.config" html="vm.feedback.projectLists">
+						</html-editor>
+					</div>
+				</div>
+				<br /><br />
+				<div class="row">
+					<div class="col-lg-2  text-left">
+						<label>
+							Competency
+						</label>
+					</div>
+					<div class="col-lg-3  text-left">
+						<label>
+							Rating
+						</label>
+					</div>
+					<div class="col-lg-7 text-left">
+						<label>
+							Supporting Comments
+						</label>
+					</div>
+				</div>
+				<br/>
+				<div class="row" ng-repeat="rq in vm.feedback.ratingQuestions">
+					<div class="col-lg-2  text-left">
+						<span ng-bind="rq.competency"></span>
+					</div>
+					<div class="col-lg-3 text-left">
+
+						<div ng-repeat="r in vm.ratings">
+							<label>
+								<input type="radio" ng-model="rq.rating" ng-value="r">
+								<span ng-bind="r.description"></span>
+							</label><br/>
+						</div>
+					</div>
+					<div class="col-lg-7  text-left">
+						<html-editor container-id="rq.editorId"
+									 config="rq.config" html="rq.supportingComments">
+						</html-editor>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 </section>

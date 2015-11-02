@@ -4,6 +4,8 @@ var app            = express();
 var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
+var nodemailer = require("nodemailer");
+var smtpTransport = require('nodemailer-smtp-transport');
 
 // configuration ===========================================
 	
@@ -21,10 +23,21 @@ app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-f
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 
+//email
+var transporter = nodemailer.createTransport(smtpTransport({
+    host: 'localhost',
+    port: 25,
+    auth: {
+        user: 'kumara',
+        pass: ''
+    }
+}));
+
+
 // routes ==================================================
-require('./app/routes')(app); // pass our application into our routes
+require('./app/routes')(app, transporter); // pass our application into our routes
 
 // start app ===============================================
-app.listen(port);	
+app.listen(port);
 console.log('Magic happens on port ' + port); 			// shoutout to the user
-exports = module.exports = app; 						// expose app
+exports = module.exports = app;

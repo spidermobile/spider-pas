@@ -12,6 +12,7 @@
 						</th>
 						<th  class="text-center">Name</th>
 						<th  class="text-center">Email</th>
+						<th  class="text-center">Status</th>
 					</tr>
 					<tr>
 						<th  class="text-center"></th>
@@ -32,6 +33,12 @@
 						</td>
 						<td><span ng-bind="user.firstName"></span></td>
 						<td><a ng-href="mailto:{{user.email}}?subject={{encodeURI(vm.invitationSubject)}}&body={{encodeURI(vm.invitationDescription)}}"  ng-bind="user.email"></a></td>
+						<td>
+							<div ng-if="user.emailTried">
+								<span class="glyphicon glyphicon-check" ng-show="user.emailTried && user.emailSent"></span>
+								<span class="glyphicon glyphicon-remove" ng-hide="user.emailTried && user.emailSent"></span>
+							</div>
+						</td>
 					</tr>
 					</tbody>
 				</table>
