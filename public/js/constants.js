@@ -5,6 +5,6 @@
     'use strict';
 
     angular.module("spiderPortal")
-        .constant("apiBaseUrl", "");
+        .constant("apiBaseUrl", "/api/v1/");
 })();
 

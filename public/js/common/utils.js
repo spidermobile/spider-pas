@@ -17,6 +17,10 @@
                     var currentHeight = textarea.scrollHeight - 2;
                     $(textarea).css("height", currentHeight + "px");
                 };
+
+                $rootScope.showError = function(errorMsg){
+                    alert(errorMsg);
+                };
             }
         }
     }

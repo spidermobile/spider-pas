@@ -10,7 +10,7 @@
 		function init() {
 			vm.invitationSubject = "Sign Up for PAS";
 			vm.invitationDescription = "Dear  {firstName},\n\n" +
-			"Please click on the link below and set password to login into PAS system \n " +
+			"Please click on the link below and set password to login into PAS system \n\n" +
 
 			"Link to access the application is:\n{link}\n\n" +
 
@@ -24,7 +24,7 @@
 		};
 
 		vm.loadData = function () {
-			associateService.getUsers().then(
+			associateService.getAssociates().then(
 					function(data){
 						vm.users = data;
 						angular.forEach(vm.users, function(user){
@@ -33,7 +33,7 @@
 						});
 					},
 					function(){
-						alert("error occured");
+						$rootScope.showError("error occured");
 						return;
 					}
 				);
@@ -61,7 +61,7 @@
 				vm.selectedUsers = [];
 				if(vm.isAllUserChecked){
 					angular.forEach(vm.users,function(user){
-						vm.selectedUsers.push(user.id);
+						vm.selectedUsers.push(user._id);
 					});
 				}
 			},0);
@@ -74,7 +74,7 @@
 				var expression = "{" + prop + "}";
 				var rx = new RegExp(expression, 'gim');
 				var value = context[prop];
-				string.replace(rx, value);
+				string = string.replace(rx, value);
 			}
 			return string;
 		};
@@ -85,7 +85,7 @@
 				angular.forEach(vm.selectedUsers, function(userId , index){
 					var user = null;
 					angular.forEach(vm.users, function(userData){
-						if(userData.id == userId){
+						if(userData._id == userId){
 							user = userData;
 							return;
 						}

@@ -27,9 +27,9 @@
 						<td><input
 								type="checkbox"
 								name="vm.selectedUsers[]"
-								value="{{user.id}}"
-								ng-checked="vm.selectedUsers.indexOf(user.id) > -1"
-								ng-click="vm.toggleSelection(user.id)">
+								value="{{user._id}}"
+								ng-checked="vm.selectedUsers.indexOf(user._id) > -1"
+								ng-click="vm.toggleSelection(user._id)">
 						</td>
 						<td><span ng-bind="user.firstName"></span></td>
 						<td><a ng-href="mailto:{{user.email}}?subject={{encodeURI(vm.invitationSubject)}}&body={{encodeURI(vm.invitationDescription)}}"  ng-bind="user.email"></a></td>
