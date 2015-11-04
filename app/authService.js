@@ -23,9 +23,8 @@ module.exports = function(app, config, jwt) {
 					delete user["password"];
 					res.status(200).json({
 						success: true,
-						user: {firstName: user.firstName, roles: user.roles},
-						message: 'Login Success',
-						token: token
+						user: {firstName: user.firstName, roles: user.roles, token: token},
+						message: 'Login Success'
 					});
 				}
 			}
@@ -33,6 +32,10 @@ module.exports = function(app, config, jwt) {
 	});
 
 	app.use(function(req, res, next) {
+		if(req.url.indexOf("api")<0){
+			next();
+			return
+		};
 		// check header or url parameters or post parameters for token
 		var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
