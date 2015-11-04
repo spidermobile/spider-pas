@@ -9,7 +9,15 @@
 			.state('login', {
 				url: '/login',
 				templateUrl: 'auth/login.html',
-				controller: 'loginController'
+				controller: 'loginController',
+				onEnter: [
+					"$rootScope", '$state', function ($rootScope, $state) {
+						if ($rootScope.isAuthenticated()) {
+							$state.go('myfeedback');
+							return;
+						}
+					}
+				]
 			})
 			.state('logout', {
 						url: '/logout',
@@ -60,9 +68,16 @@
 						if (!$rootScope.isAuthenticated()) {
 							$state.go('login');
 							return;
+						}else if(!$rootScope.isAdmin()){
+							$state.go('error', {status: 403});
+							return;
 						}
 					}
 				]
+			})
+			.state('error', {
+				url: '/error/:status',
+				templateUrl: 'errors/error.html'
 			});
 
 		$urlRouterProvider.otherwise('/myfeedback');

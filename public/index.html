@@ -35,12 +35,14 @@
 	<script src="auth/loginController.js"></script>
 	<script src="auth/logoutController.js"></script>
 
+	<script src="errors/errorController.js"></script>
+
 	<script src="myFeedback/myFeedbackService.js"></script>
 	<script src="myFeedback/myFeedbackController.js"></script>
 
 	<script src="peerFeedback/peerFeedbackController.js"></script>
 
-	<script src="viewFeedback/viewFeedbackController.js"></script>
+	<script src="view Feedback/viewFeedbackController.js"></script>
 
 	<script src="associates/associateService.js"></script>
 	<script src="associates/associatesController.js"></script>
@@ -50,7 +52,7 @@
 	<div>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
-				<div class="logo"></div>
+				<a class="logo" ui-sref="home"></a>
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 						<span class="sr-only">Toggle navigation</span>
@@ -62,26 +64,26 @@
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li><a ui-sref="myfeedback">My Feedback</a></li>
-						<li><a ui-sref="peerfeedback">Peer Feedback</a></li>
-						<li><a ui-sref="viewFeedback">View Feedback</a></li>
-						<li><a ui-sref="associates">My Associates</a></li>
+						<li><a ui-sref="myfeedback" ng-class="{'active' : currentState().name == 'myfeedback'}"  ng-if="loggedUser">My Feedback</a></li>
+						<li><a ui-sref="peerfeedback" ng-class="{'active' : currentState().name == 'peerfeedback'}"  ng-if="loggedUser">Peer Feedback</a></li>
+						<li><a ui-sref="viewFeedback" ng-class="{'active' : currentState().name == 'viewFeedback'}"  ng-if="loggedUser">View Feedback</a></li>
+						<li><a ui-sref="associates" ng-class="{'active' : currentState().name == 'associates'}"  ng-if="(loggedUser && loggedUser.roles.indexOf('Admin')>=0)">My Associates</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
 							<a href="javascript:void(0)">
-								<span ng-bind="loggedUser.name"></span>
+								<span ng-bind="loggedUser.firstName"></span>
 							</a>
 						</li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
 		</nav>
-
 	<!-- ANGULAR DYNAMIC CONTENT -->
 	<div class="container-fluid main">
 		<div ui-view></div>
 	</div>
+
 </div>
 </body>
 </html>

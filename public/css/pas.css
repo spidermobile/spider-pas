@@ -434,6 +434,11 @@ div.navitem {
     COLOR: #333 !important;
 }
 
+.navbar-nav > LI > A.active {
+    background-color: #ffcd40 !important;
+    COLOR: #333 !important;
+}
+
 .navbar-nav > LI > A:visited {
     COLOR: #fff !important;
 }
@@ -583,4 +588,8 @@ div.navitem {
     font-family: MyFont;
     border-radius: 0px;
     text-transform: capitalize;
+}
+
+.error-section{
+    padding-top: 90px !important;
 }

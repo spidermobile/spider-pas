@@ -14,11 +14,22 @@
           });
 
           function getLoggedUser() {
-              return $rootScope.loggedUser;
+              if(typeof(Storage) !== "undefined") {
+                  if (sessionStorage.pasLoggedUser) {
+                      return JSON.parse(sessionStorage.pasLoggedUser);
+                  }
+              }
+              return null;
           };
 
           function setLoggedUser(user) {
-              $rootScope.loggedUser = user;
+              $rootScope.user = user;
+              if(typeof(Storage) !== "undefined") {
+                  $rootScope.loggedUser = user;
+                  sessionStorage.pasLoggedUser = JSON.stringify(user);
+              } else {
+                  alert("Sorry, your browser does not support web storage...");
+              }
           };
 
           function getAssociates() {

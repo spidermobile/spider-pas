@@ -7,7 +7,9 @@ module.exports = function(app, config, jwt) {
 		app.Associate.findOne({
 			email: req.body.email
 		}, function(err, user) {
-			if (err) throw err;
+			if (err) {
+				res.json({ success: false, message: 'Authentication failed. Wrong Username.' });
+			};
 			if (!user) {
 				res.json({ success: false, message: 'Authentication failed. User not found.' });
 			} else if (user) {
@@ -21,7 +23,7 @@ module.exports = function(app, config, jwt) {
 					delete user["password"];
 					res.status(200).json({
 						success: true,
-						user: {firstName: user.firstName},
+						user: {firstName: user.firstName, roles: user.roles},
 						message: 'Login Success',
 						token: token
 					});

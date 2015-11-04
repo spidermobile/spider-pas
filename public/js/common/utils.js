@@ -8,9 +8,23 @@
     function utils() {
         return {
             initRootScope: function utils($rootScope, associateService, $state) {
+                $rootScope.currentState = function(){
+                    return $state.current;
+                };
+
+                $rootScope.loggedUser = associateService.getLoggedUser();
+
                 $rootScope.isAuthenticated  = function (){
                     return associateService.getLoggedUser();
-                }
+                };
+
+                $rootScope.isAdmin  = function (){
+                    var user = associateService.getLoggedUser();
+                    if(user && user.roles.indexOf("Admin") >= 0){
+                        return true;
+                    }
+                    return false;
+                };
 
                 $rootScope.setTextAreaHeight = function (textarea) {
                     $(textarea).css("height", (textarea.scrollHeight - 22) + "px");
@@ -27,7 +41,6 @@
 
     angular.module('spiderPortal')
         .run(['utils', '$rootScope', 'associateService', '$state', run]);
-
     function run(utils, $rootScope, associateService, $state) {
         utils.initRootScope($rootScope, associateService, $state);
     };

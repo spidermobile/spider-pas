@@ -2,16 +2,30 @@
     'use strict';
 
     angular.module('spiderPortal')
-        .factory('loginService', ['associateService', loginService]);
+        .factory('loginService', ['$resource', '$q', 'associateService', 'apiService', loginService]);
 
-      function loginService(associateService) {
-          return {
-              login: login
+      function loginService($resource, $q, associateService, apiService) {
+
+          var resource = $resource(apiService.baseUrl(), null, {
+              login: {
+                  method: "POST",
+                  url: apiService.resolveUrl("login")
+              }
+          });
+          function login(email, password) {
+              return $q(function (resolve, reject) {
+                  resource.login({},{email: email, password: password},
+                      function (data) {
+                          associateService.setLoggedUser(data.user);
+                          resolve(data);
+                      }, function (error) {
+                          reject(error);
+                      });
+              });
           };
 
-          function login(username, password) {
-              associateService.setLoggedUser({name: username});
-              console.log('Hi there!\n So I know that your user and password is:\n' + username + "\n" +  password);
+          return {
+              login: login
           };
       };
   })();

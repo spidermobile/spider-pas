@@ -5,10 +5,10 @@
 		            <div class="col-lg-7 col-md-7">
 		                <form name="loginForm" class="form-horizontal signin-form">
 		                    <h2 class="signin-heading">Sign In </h2>
-		                    <input type="email" ng-model="vm.credentials.username" name="username" class="form-control col-sm-12" placeholder="Email address" required autofocus>
+		                    <input type="email" ng-model="vm.credentials.email" name="email" class="form-control col-sm-12" placeholder="Email address" required autofocus>
 		                    <div class="col-sm-12">
-		                        <span class="haserrorfieldlevel" ng-show="loginForm.username.$error.required && !loginForm.username.$pristine">This is required.</span>
-		                        <span class="haserrorfieldlevel" ng-show="loginForm.username.$error.email && !loginForm.username.$pristine">This needs to be an email address.</span>
+		                        <span class="haserrorfieldlevel" ng-show="loginForm.email.$error.required && !loginForm.email.$pristine">This is required.</span>
+		                        <span class="haserrorfieldlevel" ng-show="loginForm.email.$error.email && !loginForm.email.$pristine">This needs to be an email address.</span>
 		                        <span class="haserrorfieldlevel" ng-show="loginError!=null">{{loginError}}</span>
 		                    </div>
 		                    <br /><br />
