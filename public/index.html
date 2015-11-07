@@ -18,6 +18,7 @@
 	<script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script src='libs/angular-bootstrap/ui-bootstrap.js'></script>
 	<script src='libs/angular-bootstrap/ui-bootstrap-tpls.js'></script>
+	<script src='libs/ngstorage/ngStorage.min.js'></script>
 
 
 	<!-- ANGULAR CUSTOM -->
@@ -27,32 +28,28 @@
 	<script src="js/appRoutes.js"></script>
 	<script src="js/constants.js"></script>
 
-	<script src="js/common/utils.js"></script>
+	<script src="js/common/rootController.js"></script>
+	<script src="js/interceptors/authInterceptor.js"></script>
+
 	<script src="js/common/apiService.js"></script>
 	<script src="js/common/pasTable.js"></script>
 	<script src="js/common/htmlEditor.js"></script>
 	<script src="directives/pasOverlay.js"></script>
 
-	<script src="auth/loginService.js"></script>
-	<script src="auth/loginController.js"></script>
-	<script src="auth/logoutController.js"></script>
-
 	<script src="errors/errorController.js"></script>
 
-	<script src="myFeedback/myFeedbackService.js"></script>
-	<script src="myFeedback/myFeedbackController.js"></script>
-
-	<script src="peerFeedback/peerFeedbackController.js"></script>
-
-	<script src="viewFeedback/viewFeedbackController.js"></script>
-
+	<script src="auth/loginController.js"></script>
+	<script src="auth/logoutController.js"></script>
 	<script src="associates/associateService.js"></script>
 	<script src="associates/associatesController.js"></script>
+	<script src="myFeedback/myFeedbackService.js"></script>
+	<script src="myFeedback/myFeedbackController.js"></script>
+	<script src="peerFeedback/peerFeedbackController.js"></script>
+	<script src="viewFeedback/viewFeedbackController.js"></script>
 
-	<script src="js/interceptors/tokenInterceptor.js"></script>
 </head>
 
-<body ng-app="spiderPortal">
+<body ng-app="spiderPortal" ng-controller="rootController as vm">
 	<div>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
@@ -68,16 +65,17 @@
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li><a ui-sref="myfeedback" ng-class="{'active' : currentState().name == 'myfeedback'}"  ng-if="loggedUser">My Feedback</a></li>
-						<li><a ui-sref="peerfeedback" ng-class="{'active' : currentState().name == 'peerfeedback'}"  ng-if="loggedUser">Peer Feedback</a></li>
-						<li><a ui-sref="viewFeedback" ng-class="{'active' : currentState().name == 'viewFeedback'}"  ng-if="loggedUser">View Feedback</a></li>
-						<li><a ui-sref="associates" ng-class="{'active' : currentState().name == 'associates'}"  ng-if="(loggedUser && loggedUser.roles.indexOf('Admin')>=0)">My Associates</a></li>
+						<li><a ui-sref="myfeedback" ng-class="{'active' : currentState().name == 'myfeedback'}"  ng-if="isAuthenticated()">My Feedback</a></li>
+						<li><a ui-sref="peerfeedback" ng-class="{'active' : currentState().name == 'peerfeedback'}"  ng-if="isAuthenticated()">Peer Feedback</a></li>
+						<li><a ui-sref="viewFeedback" ng-class="{'active' : currentState().name == 'viewFeedback'}"  ng-if="isAuthenticated()">View Feedback</a></li>
+						<li><a ui-sref="associates" ng-class="{'active' : currentState().name == 'associates'}"  ng-if="isAdmin()">My Associates</a></li>
 					</ul>
-					<ul class="nav navbar-nav navbar-right">
+					<ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated()">
+						<li class="userheader">
+							<span ng-bind="currentUser().firstName"></span>
+						</li>
 						<li>
-							<a href="javascript:void(0)">
-								<span ng-bind="loggedUser.firstName"></span>
-							</a>
+							<a ui-sref="logout">Logout</a>
 						</li>
 					</ul>
 				</div><!--/.nav-collapse -->

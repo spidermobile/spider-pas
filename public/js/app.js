@@ -1,10 +1,12 @@
 (function () {
     'use strict';
 
-    angular.module('spiderPortal', ['ngResource', 'ui.router', 'ui.bootstrap'])
-    .config([
-        "$httpProvider", function($httpProvider) {
-            $httpProvider.interceptors.push("tokenInterceptor");
-        }
-    ])
+    angular.module('spiderPortal', ['ngResource', 'ngStorage', 'ui.router', 'ui.bootstrap']);
+
+    angular.module('spiderPortal')
+      .config(['$httpProvider', spiderPortal]);
+
+    function spiderPortal($httpProvider) {
+        $httpProvider.interceptors.push('authInterceptor');
+    }
   })();

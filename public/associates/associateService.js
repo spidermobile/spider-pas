@@ -10,26 +10,22 @@
                   method: "GET",
                   url: apiService.resolveUrl("associates"),
                   isArray: true
+              },
+              login: {
+                  method: "POST",
+                  url: apiService.resolveUrl("login")
               }
           });
 
-          function getLoggedUser() {
-              if(typeof(Storage) !== "undefined") {
-                  if (sessionStorage.pasLoggedUser) {
-                      return JSON.parse(sessionStorage.pasLoggedUser);
-                  }
-              }
-              return null;
-          };
-
-          function setLoggedUser(user) {
-              $rootScope.user = user;
-              if(typeof(Storage) !== "undefined") {
-                  $rootScope.loggedUser = user;
-                  sessionStorage.pasLoggedUser = JSON.stringify(user);
-              } else {
-                  alert("Sorry, your browser does not support web storage...");
-              }
+          function login(credentials) {
+              return $q(function (resolve, reject) {
+                  resource.login({},{email: credentials.email, password: credentials.password},
+                      function (data) {
+                        resolve(data);
+                      }, function (error) {
+                          reject(error);
+                      });
+              });
           };
 
           function getAssociates() {
@@ -44,8 +40,7 @@
           };
 
           return {
-              getLoggedUser: getLoggedUser,
-              setLoggedUser: setLoggedUser,
+              login: login,
               getAssociates: getAssociates
           };
       };

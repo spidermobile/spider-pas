@@ -33,64 +33,15 @@ var transporter = nodemailer.createTransport(smtpTransport({
     }
 }));
 
-// routes ==================================================
-require('./app/routes')(app, transporter); // pass our application into our routes
-
-
-// authService ==================================================
-require('./app/authService')(app, config, jwt); // pass our application into our routes
-
 // models ==================================================
 var associateModel = require('./app/models/associate')(app, mongoose, restify);
 app.Associate = associateModel;
 
-app.get('/setup', function(req, res) {
+// routes ==================================================
+require('./app/routes')(app, transporter); // pass our application into our routes
 
-    // create a sample user
-    var tina = new app.Associate({
-      firstName: 'Tina',
-      lastName: 'Jain',
-      employeeCode: 2026,
-      email: 'tjain@spiderlogic.com',
-      userName: 'tjain',
-      password: 'password',
-      roles: ["Associate", "PC"],
-      pc: 'gkasturi'
-    });
-
-    // save the sample user
-    tina.save(function(err) {
-      if (err) {
-        console.log(err);
-      }
-
-      console.log('User Tina saved successfully');
-    });
-
-  // create a sample user
-  var asheesh = new app.Associate({
-    firstName: 'Asheesh',
-    lastName: 'Kumar',
-    employeeCode: 6432,
-    email: 'akumar@spiderlogic.com',
-    userName: 'akumar',
-    password: 'password',
-    roles: ["Associate"],
-    pc: 'tjain'
-  });
-
-  // save user
-  asheesh.save(function(err) {
-    if (err) {
-      console.log(err);
-      res.send({ message :'Something went wrong' });
-    }
-
-    console.log('User Asheesh saved successfully');
-    res.json({ success: true });
-  });
-});
-
+// authService ==================================================
+require('./app/authService')(app, config, jwt);
 
 // start app ===============================================
 // apply the routes to our application with the prefix /api

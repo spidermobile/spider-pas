@@ -10,74 +10,43 @@
 				url: '/login',
 				templateUrl: 'auth/login.html',
 				controller: 'loginController',
-				onEnter: [
-					"$rootScope", '$state', function ($rootScope, $state) {
+				onEnter: ["$rootScope", '$state', function ($rootScope, $state) {
 						if ($rootScope.isAuthenticated()) {
 							$state.go('myfeedback');
-							return;
-						}
-					}
-				]
+            }
+					}]
 			})
 			.state('logout', {
-						url: '/logout',
-						templateUrl: 'auth/login.html',
-						controller: 'logoutController'
-					})
+				url: '/logout',
+				templateUrl: 'auth/login.html',
+				controller: 'logoutController',
+        requireLogin: true
+			})
 			.state('myfeedback', {
 				url: '/myfeedback',
 				templateUrl: 'myFeedback/myFeedback.html',
-				onEnter: [
-					"$rootScope", '$state', function ($rootScope, $state) {
-						if (!$rootScope.isAuthenticated()) {
-							$state.go('login');
-							return;
-						}
-					}
-				]
+        requireLogin: true
 			})
 			.state('peerfeedback', {
 				url: '/peerfeedback',
 				templateUrl: 'peerFeedback/peerFeedback.html',
-				onEnter: [
-					"$rootScope", '$state', function ($rootScope, $state) {
-						if (!$rootScope.isAuthenticated()) {
-							$state.go('login');
-							return;
-						}
-					}
-				]
+        requireLogin: true
 			})
 			.state('viewFeedback', {
 				url: '/viewFeedback',
 				templateUrl: 'viewFeedback/viewFeedback.html',
-				onEnter: [
-					"$rootScope", '$state', function ($rootScope, $state) {
-						if (!$rootScope.isAuthenticated()) {
-							$state.go('login');
-							return;
-						}
-					}
-				]
+        requireLogin: true
 			})
 			.state('associates', {
 				url: '/associates',
 				templateUrl: 'associates/associates.html',
-				onEnter: [
-					"$rootScope", '$state', function ($rootScope, $state) {
-						if (!$rootScope.isAuthenticated()) {
-							$state.go('login');
-							return;
-						}else if(!$rootScope.isAdmin()){
-							$state.go('error', {status: 403});
-							return;
-						}
-					}
-				]
+        requireLogin: true,
+        requireAdmin: true
 			})
 			.state('error', {
 				url: '/error/:status',
-				templateUrl: 'errors/error.html'
+				templateUrl: 'errors/error.html',
+        requireLogin: false
 			});
 
 		$urlRouterProvider.otherwise('/myfeedback');

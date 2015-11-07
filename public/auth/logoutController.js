@@ -2,18 +2,13 @@
     'use strict';
 
     angular.module('spiderPortal')
-        .controller('logoutController', [logoutController]);
+        .controller('logoutController', ['$scope', '$rootScope', logoutController]);
 
-    function logoutController() {
-			var vm = this;
+    function logoutController($scope, $rootScope) {
+      $scope.logout = function () {
+          $rootScope.$emit('spider.portal.logout.event', [{}]);
+      };
 
-			function init() {
-				vm.tagline = 'Logout';
-			};
-
-			vm.loadData = function () {
-			};
-
-			init();
+      $scope.logout();
 	};
 })();

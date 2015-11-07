@@ -597,6 +597,15 @@ div.navitem {
 .haserrorfieldlevel {
     color: #c70307;
 }
+
+.userheader {
+  color: #ffcd40;
+  background-color: #262626;
+  padding: 15px 5px 15px 5px;
+  line-height: 20px;
+  display: block;
+}
+
 .overlayBackground {
     top: 0;
     left: 0;
