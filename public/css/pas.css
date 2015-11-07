@@ -593,3 +593,68 @@ div.navitem {
 .error-section{
     padding-top: 90px !important;
 }
+
+.haserrorfieldlevel {
+    color: #c70307;
+}
+.overlayBackground {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    opacity: .3;
+    background: 0 0 gray;
+}
+
+.overlayContent {
+    box-shadow: 2px 2px 5px 0 rgba(0,0,0,.5);
+    position: absolute;
+    background-color: #364f78;
+    border: 1px solid #43679c;
+    color: #fff;
+    font-size: 16px;
+    font-style: italic;
+    font-family: 'Abel',Arial,sans-serif;
+    padding-left: 20px;
+    margin-top: 5px;
+    height: 70px;
+    width: 300px;
+    z-index: 1000;
+    text-align: left;
+}
+
+.spin{
+     -webkit-animation: spin .6s infinite linear;
+     -moz-animation: spin .6s infinite linear;
+     -o-animation: spin .6s infinite linear;
+     animation: spin .6s infinite linear;
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -16,8 +16,11 @@
               return $q(function (resolve, reject) {
                   resource.login({},{email: email, password: password},
                       function (data) {
+                        if(data.success){
                           associateService.setLoggedUser(data.user);
                           resolve(data);
+                        }
+                        reject(data.message);
                       }, function (error) {
                           reject(error);
                       });

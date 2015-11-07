@@ -14,13 +14,17 @@
         };
 
         vm.login = function(){
+            vm.loginError = null;
+            $rootScope.$broadcast('showOverlay');
             loginService.login(vm.credentials.email, vm.credentials.password)
                 .then(function(data){
                     if(data.success){
+                        $rootScope.$broadcast('hideOverlay');
                         $state.go("myfeedback");
                     }
-                }, function(){
-                    $rootScope.showError("Erroe Occured");
+                }, function(error){
+                    $rootScope.$broadcast('hideOverlay');
+                    vm.loginError = error;
                 });
         };
 

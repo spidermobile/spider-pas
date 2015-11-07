@@ -16,7 +16,7 @@ var port = process.env.PORT || 8080; // set our port
 mongoose.connect(config.dbUrl); // connect to our mongoDB database (commented out after you enter in your own credentials)
 
 // get all data/stuff of the body (POST) parameters
-app.use(bodyParser.json()); // parse application/json 
+app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
 
@@ -36,12 +36,61 @@ var transporter = nodemailer.createTransport(smtpTransport({
 // routes ==================================================
 require('./app/routes')(app, transporter); // pass our application into our routes
 
+
 // authService ==================================================
 require('./app/authService')(app, config, jwt); // pass our application into our routes
 
 // models ==================================================
 var associateModel = require('./app/models/associate')(app, mongoose, restify);
 app.Associate = associateModel;
+
+app.get('/setup', function(req, res) {
+
+    // create a sample user
+    var tina = new app.Associate({
+      firstName: 'Tina',
+      lastName: 'Jain',
+      employeeCode: 2026,
+      email: 'tjain@spiderlogic.com',
+      userName: 'tjain',
+      password: 'password',
+      roles: ["Associate", "PC"],
+      pc: 'gkasturi'
+    });
+
+    // save the sample user
+    tina.save(function(err) {
+      if (err) {
+        console.log(err);
+      }
+
+      console.log('User Tina saved successfully');
+    });
+
+  // create a sample user
+  var asheesh = new app.Associate({
+    firstName: 'Asheesh',
+    lastName: 'Kumar',
+    employeeCode: 6432,
+    email: 'akumar@spiderlogic.com',
+    userName: 'akumar',
+    password: 'password',
+    roles: ["Associate"],
+    pc: 'tjain'
+  });
+
+  // save user
+  asheesh.save(function(err) {
+    if (err) {
+      console.log(err);
+      res.send({ message :'Something went wrong' });
+    }
+
+    console.log('User Asheesh saved successfully');
+    res.json({ success: true });
+  });
+});
+
 
 // start app ===============================================
 // apply the routes to our application with the prefix /api

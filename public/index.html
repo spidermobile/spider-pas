@@ -19,6 +19,7 @@
 	<script src='libs/angular-bootstrap/ui-bootstrap.js'></script>
 	<script src='libs/angular-bootstrap/ui-bootstrap-tpls.js'></script>
 
+
 	<!-- ANGULAR CUSTOM -->
 
 
@@ -30,6 +31,7 @@
 	<script src="js/common/apiService.js"></script>
 	<script src="js/common/pasTable.js"></script>
 	<script src="js/common/htmlEditor.js"></script>
+	<script src="directives/pasOverlay.js"></script>
 
 	<script src="auth/loginService.js"></script>
 	<script src="auth/loginController.js"></script>
@@ -86,6 +88,11 @@
 		<div ui-view></div>
 	</div>
 
+	<div data-pas-overlay data-pas-overlay-delay="500" class="ng-isolate-scope">
+		<br />
+		<i class="glyphicon glyphicon-repeat spin"></i>
+		<span>Loading...</span>
+	</div>
 </div>
 </body>
 </html>
