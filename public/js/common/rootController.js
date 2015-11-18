@@ -38,8 +38,35 @@
             $(textarea).css("height", currentHeight + "px");
         };
 
-        $rootScope.showError = function(errorMsg){
-            alert(errorMsg);
+        $rootScope.showToastrAlerts = function (toastType, title, message, options) {
+            toastr.options = {
+                closeButton: true,
+                positionClass: "toast-bottom-right",
+                onclick: null,
+                onShown: null,
+                onHidden: null,
+                showDuration: 500,
+                hideDuration: 500,
+                timeOut: 0,
+                extendedTimeOut: 0,
+                showEasing: 'swing',
+                hideEasing: 'swing',
+                showMethod: 'fadeIn',
+                hideMethod: 'fadeOut',
+                tapToDismiss: true,
+                newestOnTop: true
+            };
+            angular.extend(toastr.options, options);
+            return toastr[toastType](message, title);
+        };
+
+        $rootScope.showError = function(msg){
+            $rootScope.showToastrAlerts("error", "Error: ", msg);
+        };
+
+        $rootScope.showSuccess = function(msg){
+            var toastOptions = {timeOut: 3000, extendedTimeOut: 3000};
+            $rootScope.showToastrAlerts("success", "Success: ", msg, toastOptions);
         };
 
         var loginSuccessCleanup = $rootScope.$on("spider.portal.login.success.event", function(event, user) {

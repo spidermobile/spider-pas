@@ -9,6 +9,7 @@ var nodemailer     = require("nodemailer");
 var smtpTransport  = require('nodemailer-smtp-transport');
 var jwt            = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config         = require('./config/config');
+var bcrypt         = require('bcrypt');
 
 //======================================
 
@@ -41,7 +42,7 @@ app.Associate = associateModel;
 require('./app/routes')(app, transporter); // pass our application into our routes
 
 // authService ==================================================
-require('./app/authService')(app, config, jwt);
+require('./app/authService')(app, config, jwt, bcrypt);
 
 // start app ===============================================
 // apply the routes to our application with the prefix /api

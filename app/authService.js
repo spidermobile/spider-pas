@@ -1,4 +1,4 @@
-module.exports = function(app, config, jwt) {
+module.exports = function(app, config, jwt, bcrypt) {
 
 	app.set('superSecret', config.secret); // secret variable
 
@@ -13,9 +13,7 @@ module.exports = function(app, config, jwt) {
 			if (!user) {
 				res.json({ success: false, message: 'Authentication failed. User not found.' });
 			} else if (user) {
-				if (user.password != req.body.password) {
-					res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-				} else {
+				if(bcrypt.compareSync(req.body.password, user.password)){
 					var token = jwt.sign(user, app.get('superSecret'), {
 						expiresInMinutes: 180 // expires in 3 hours
 					});
@@ -26,9 +24,33 @@ module.exports = function(app, config, jwt) {
 						user: {firstName: user.firstName, roles: user.roles, token: token},
 						message: 'Login Success'
 					});
+				} else {
+					res.json({ success: false, message: 'Authentication failed. Wrong password.' });
 				}
 			}
 		});
+	});
+
+	app.post('/api/v1/associates/:id/password', function(req, res) {
+		app.Associate.findOneAndUpdate(
+			{ _id: req.params.id },
+			{ password: bcrypt.hashSync(req.body.password, 10), active: true },
+			{new: true},
+			function(err, user) {
+				if (err) {
+					res.json({ success: false, message: 'Error saving password.' });
+				};
+				if (!user) {
+					res.json({ success: false, message: 'Error saving password: User not found.' });
+				} else if (user) {
+					res.status(200).json({
+						success: true,
+						user: user,
+						message: 'Password saved successfully'
+					});
+				}
+			}
+		);
 	});
 
 	app.use(function(req, res, next) {

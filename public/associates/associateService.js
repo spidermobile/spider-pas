@@ -11,9 +11,18 @@
                   url: apiService.resolveUrl("associates"),
                   isArray: true
               },
+              savePassword: {
+                  method: "POST",
+                  url: apiService.resolveUrl("associates/:id/password")
+              },
               login: {
                   method: "POST",
                   url: apiService.resolveUrl("login")
+              },
+              query: {
+                  method: "GET",
+                  url: apiService.resolveUrl("associates?query=:query"),
+                  isArray: true
               }
           });
 
@@ -39,9 +48,34 @@
               });
           };
 
+          function savePassword(associate) {
+              return $q(function (resolve, reject) {
+                  resource.savePassword({id: associate._id},associate,
+                      function (data) {
+                          resolve(data);
+                      }, function (error) {
+                          reject(error);
+                      });
+              });
+          };
+
+          function query(query) {
+              return $q(function (resolve, reject) {
+                  resource.query({query: JSON.stringify(query)},
+                      function (data) {
+                          resolve(data);
+                      }, function (error) {
+                          reject(error);
+                      });
+              });
+          };
+
+
           return {
               login: login,
-              getAssociates: getAssociates
+              getAssociates: getAssociates,
+              query: query,
+              savePassword: savePassword
           };
       };
   })();

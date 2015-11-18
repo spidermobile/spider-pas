@@ -9,14 +9,15 @@ module.exports = function (app, mongoose, restify) {
         employeeCode: { type: Number, required: true },
         email: { type: String, required: true },
         userName: { type: String, required: true },
-        password: { type: String, required: false, access: "private" },
+        password: { type: String, required: false },
         roles: { type: Array, required: true, default: ["Associate"] },
-        pc: { type: String, required: true }
+        pc: { type: String, required: true },
+        active: { type: Boolean, required: true }
     });
     var associateModel = mongoose.model('associate', Associate);
 
     var api = restify.serve(app, associateModel, {
-        // exclude: 'text,done'
+        private: ['password']
     });
     console.log(api);
 

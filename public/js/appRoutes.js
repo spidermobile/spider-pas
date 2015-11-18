@@ -11,42 +11,47 @@
 				templateUrl: 'auth/login.html',
 				controller: 'loginController',
 				onEnter: ["$rootScope", '$state', function ($rootScope, $state) {
-						if ($rootScope.isAuthenticated()) {
-							$state.go('myfeedback');
-            }
-					}]
+					if ($rootScope.isAuthenticated()) {
+						$state.go('myfeedback');
+            		}
+				}]
 			})
 			.state('logout', {
 				url: '/logout',
 				templateUrl: 'auth/login.html',
 				controller: 'logoutController',
-        requireLogin: true
+        		requireLogin: true
+			})
+			.state('setPassword', {
+				url: '/setpassword/:uid',
+				templateUrl: 'auth/setPassword.html',
+				requireLogin: false
 			})
 			.state('myfeedback', {
 				url: '/myfeedback',
 				templateUrl: 'myFeedback/myFeedback.html',
-        requireLogin: true
+        		requireLogin: true
 			})
 			.state('peerfeedback', {
 				url: '/peerfeedback',
 				templateUrl: 'peerFeedback/peerFeedback.html',
-        requireLogin: true
+        		requireLogin: true
 			})
 			.state('viewFeedback', {
 				url: '/viewFeedback',
 				templateUrl: 'viewFeedback/viewFeedback.html',
-        requireLogin: true
+        		requireLogin: true
 			})
 			.state('associates', {
 				url: '/associates',
 				templateUrl: 'associates/associates.html',
-        requireLogin: true,
-        requireAdmin: true
+				requireLogin: true,
+				requireAdmin: true
 			})
 			.state('error', {
 				url: '/error/:status',
 				templateUrl: 'errors/error.html',
-        requireLogin: false
+        		requireLogin: false
 			});
 
 		$urlRouterProvider.otherwise('/myfeedback');

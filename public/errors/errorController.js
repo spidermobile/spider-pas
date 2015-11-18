@@ -26,6 +26,10 @@
                 vm.errorDesc = "You do not have permission to view this directory or page using the credentials that you supplied.\n\n"
                 + "Contact administrator to access this page.\n\n"
                 + "Thank you for you kind support.";
+            } else {
+                vm.errorMsg = $stateParams.message ? $stateParams.message : "Unknown Error";
+                vm.errorDesc = "Contact administrator.\n\n"
+                + "Thank you for you kind support.";
             }
         };
 
